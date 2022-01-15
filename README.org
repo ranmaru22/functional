@@ -1,0 +1,5 @@
+* functional
+
+A functional library for Rust. Provides common functional concepts such as functors, applicatives, monads, etc. as implementable traits and some default implementations for Rust's standard types.
+
+*Note*: This is a hobby project and it's absolutely not meant to be used in any sort of production. I am building this just to see if I can.
