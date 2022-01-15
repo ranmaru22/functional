@@ -28,7 +28,6 @@ impl<A: Clone> Functor for Option<A> {
         &self,
         f: fn(<Self as Generic1>::Inner) -> B
     ) -> <Self as Plug<B>>::Return {
-        // Option already has a map op, so fmap is really just that.
         self.as_ref().map(|a| f(a.clone()))
     }
 }
@@ -47,7 +46,6 @@ impl<A: Clone> Functor for Vec<A> {
         &self,
         f: fn(<Self as Generic1>::Inner) -> B
     ) -> <Self as Plug<B>>::Return {
-        // Option already has a map op, so fmap is really just that.
         self.iter().map(|a| f(a.clone())).collect()
     }
 }
