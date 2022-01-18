@@ -1,52 +1,30 @@
-use crate::base::{Generic1, Plug};
-
 /// The Functor trait provides a structure preserving mapping operation `fmap`
 /// that morphs any F<A> into an F<B> when provided with a function A -> B.
 ///
-/// The Generic1 and Plug traits need to be implemented for the functor for this
-/// to work properly.
+/// Any A should implement the Clone trait so that the return value is a new
+/// object and the origial remains untouched.
 pub trait Functor {
-    fn fmap<B>(
-        &self,
-        f: fn(<Self as Generic1>::Inner) -> B
-    ) -> <Self as Plug<B>>::Return
-    where
-        Self: Plug<B> + Generic1;
-}
+    type Inner;
+    type Output<B>;
 
-
-impl<A> Generic1 for Option<A> {
-    type Inner = A;
-}
-
-impl<A: Clone, B> Plug<B> for Option<A> {
-    type Return = Option<B>;
+    fn fmap<B>(&self, f: fn(Self::Inner) -> B) -> Self::Output<B>;
 }
 
 impl<A: Clone> Functor for Option<A> {
-    fn fmap<B>(
-        &self,
-        f: fn(<Self as Generic1>::Inner) -> B
-    ) -> <Self as Plug<B>>::Return {
-        self.as_ref().map(|a| f(a.clone()))
+    type Inner = A;
+    type Output<B> = Option<B>;
+
+    fn fmap<B>(&self, f: fn(A) -> B) -> Option<B> {
+        self.clone().map(f)
     }
 }
 
-
-impl<A> Generic1 for Vec<A> {
-    type Inner = A;
-}
-
-impl<A: Clone, B> Plug<B> for Vec<A> {
-    type Return = Vec<B>;
-}
-
 impl<A: Clone> Functor for Vec<A> {
-    fn fmap<B>(
-        &self,
-        f: fn(<Self as Generic1>::Inner) -> B
-    ) -> <Self as Plug<B>>::Return {
-        self.iter().map(|a| f(a.clone())).collect()
+    type Inner = A;
+    type Output<B> = Vec<B>;
+
+    fn fmap<B>(&self, f: fn(A) -> B) -> Vec<B> {
+        self.iter().cloned().map(f).collect::<Vec<_>>()
     }
 }
 
