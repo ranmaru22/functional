@@ -2,4 +2,14 @@
 
 A functional library for Rust. Provides common functional concepts such as functors, applicatives, monads, etc. as implementable traits and some default implementations for Rust's standard types.
 
-*Note*: This is a hobby project and it's absolutely not meant to be used in any sort of production. I am building this just to see if I can.
+*Note*: This is a hobby project and it's absolutely not meant to be used in any sort of real project. I am building this just to see if I can.
+
+** FAQ
+*** Is this in any way usable?
+As a proof of concept, maybe. In production, absolutely not.
+
+*** But I want functors in Rust.
+Rust has a lot of functional features and most embellished data types actually do support functorial and monadic operations which you can see in the implementations here. If you need this functionality, use those, because the compiler can optimize them.
+
+*** But I want real functors!
+Use Haskell, then.
