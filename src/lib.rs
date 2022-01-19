@@ -11,3 +11,5 @@
 pub mod functor;
 pub mod bifunctor;
 pub mod contravariant;
+pub mod profunctor;
+pub mod applicative;
